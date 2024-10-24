@@ -74,28 +74,42 @@ class InventoryApp:
 
         self.root.title("Inventory Management")
 
+        # Настраиваем сетку для растяжения и центровки
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_rowconfigure(1, weight=1)
+        self.root.grid_rowconfigure(2, weight=1)
+        self.root.grid_rowconfigure(3, weight=1)
+        self.root.grid_rowconfigure(4, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_columnconfigure(1, weight=1)
+
+        # Увеличиваем шрифт
+        label_font = ("Arial", 16)
+        entry_font = ("Arial", 14)
+        button_font = ("Arial", 16)
+
         # Интерфейс для добавления продуктов
-        self.label_product = tk.Label(root, text="Product Name")
-        self.label_product.grid(row=0, column=0)
-        self.entry_product_name = tk.Entry(root)
-        self.entry_product_name.grid(row=0, column=1)
+        self.label_product = tk.Label(root, text="Product Name", font=label_font)
+        self.label_product.grid(row=0, column=0, sticky="e", padx=10, pady=10)
+        self.entry_product_name = tk.Entry(root, font=entry_font)
+        self.entry_product_name.grid(row=0, column=1, padx=10, pady=10)
 
-        self.label_price = tk.Label(root, text="Unit Price")
-        self.label_price.grid(row=1, column=0)
-        self.entry_unit_price = tk.Entry(root)
-        self.entry_unit_price.grid(row=1, column=1)
+        self.label_price = tk.Label(root, text="Unit Price", font=label_font)
+        self.label_price.grid(row=1, column=0, sticky="e", padx=10, pady=10)
+        self.entry_unit_price = tk.Entry(root, font=entry_font)
+        self.entry_unit_price.grid(row=1, column=1, padx=10, pady=10)
 
-        self.label_category = tk.Label(root, text="Category")
-        self.label_category.grid(row=2, column=0)
-        self.entry_category = tk.Entry(root)
-        self.entry_category.grid(row=2, column=1)
+        self.label_category = tk.Label(root, text="Category", font=label_font)
+        self.label_category.grid(row=2, column=0, sticky="e", padx=10, pady=10)
+        self.entry_category = tk.Entry(root, font=entry_font)
+        self.entry_category.grid(row=2, column=1, padx=10, pady=10)
 
-        self.button_add_product = tk.Button(root, text="Add Product", command=self.add_product)
-        self.button_add_product.grid(row=3, column=0, columnspan=2)
+        self.button_add_product = tk.Button(root, text="Add Product", font=button_font, command=self.add_product)
+        self.button_add_product.grid(row=3, column=0, columnspan=2, pady=20)
 
         # Кнопка для отображения всех продуктов
-        self.button_show_products = tk.Button(root, text="Show All Products", command=self.show_products)
-        self.button_show_products.grid(row=4, column=0, columnspan=2)
+        self.button_show_products = tk.Button(root, text="Show All Products", font=button_font, command=self.show_products)
+        self.button_show_products.grid(row=4, column=0, columnspan=2, pady=20)
 
     def add_product(self):
         product_name = self.entry_product_name.get()
@@ -116,8 +130,13 @@ class InventoryApp:
 
 # Основной запуск программы
 if __name__ == "__main__":
-    db = Database('InventorySQL.db')  # Указываем название вашей базы данных
+    db = Database('inventorySystem.db')  # Указываем название вашей базы данных
     root = tk.Tk()
+
+    # Установка окна в полноэкранный режим
+    root.state('zoomed')  # Для Windows
+    # root.attributes('-fullscreen', True)  # Можно использовать для Linux/Mac или Windows
+
     app = InventoryApp(root, db)
     root.mainloop()
     db.close()
